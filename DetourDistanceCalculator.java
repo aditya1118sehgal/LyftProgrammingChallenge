@@ -15,6 +15,10 @@
 public class DetourDistanceCalculator {
 	
 	private static final double EARTH_RADIUS_MILES = 3961;
+	private static final double MAX_LATITUDE = 90;
+	private static final double MIN_LATITUDE = -90;
+	private static final double MAX_LONGITUDE = 180;
+	private static final double MIN_LONGITUDE = -180;
 	
 	private Point A = null;
 	private Point B = null;
@@ -153,8 +157,18 @@ public class DetourDistanceCalculator {
 	 */
 	private static boolean isValid(double[] inputs) {
 		for( int i = 0; i < 8; i ++)
-			if(inputs[i] < 0 )
-				return false;
+			if(i%2 == 0) {
+			
+				if( (MAX_LATITUDE < inputs[i] || MIN_LATITUDE > inputs[i]) )
+					return false;
+				
+			}
+			else {
+
+				if(MAX_LONGITUDE < inputs[i] || MIN_LONGITUDE > inputs[i])
+					return false;
+			}
+
 			
 		return true;
 	}
